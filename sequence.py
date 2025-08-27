@@ -10,7 +10,6 @@ def read_fasta(file_path):
             sequence += ''.join(line.strip())
     return sequence.upper()
 
-
 def nucleotide_frequency(seq):
     return {
         'A': seq.count('A'),
@@ -19,13 +18,11 @@ def nucleotide_frequency(seq):
         'G': seq.count('G')
     }
 
-
 def gc_content(seq):
     g = seq.count('G')
     c = seq.count('C')
     gc = (g + c) / len(seq) * 100
     return round(gc,2)
-
 
 def reverse_complement(seq):
     rev_comp = ""
@@ -38,7 +35,6 @@ def reverse_complement(seq):
     for base in reversed(seq):
         rev_comp += ''.join(complement[base])
     return rev_comp
-
 
 def gc_content_window(seq, window_size=50):
     gc_values = []
@@ -61,18 +57,18 @@ def plot_gc_content(positions, gc_values):
     plt.tight_layout()
     plt.show()
 
+def main():
+    dna_seq = read_fasta("sequence.fasta")
+    print(dna_seq)
+    freq = nucleotide_frequency(dna_seq)
+    print(freq)
+    gc = gc_content(dna_seq)
+    print(gc)
+    rev_comp = reverse_complement(dna_seq)
+    print(rev_comp)
+    positions, gc_values = gc_content_window(dna_seq, window_size=10)
+    plot_gc_content(positions, gc_values)
 
-dna_seq = read_fasta("sequence.fasta")
-print(dna_seq)
 
-freq = nucleotide_frequency(dna_seq)
-print(freq)
-
-gc = gc_content(dna_seq)
-print(gc)
-
-rev_comp = reverse_complement(dna_seq)
-print(rev_comp)
-
-positions, gc_values = gc_content_window(dna_seq, window_size=10)
-plot_gc_content(positions, gc_values)
+if __name__ == "__main__":
+    main()
